@@ -1,14 +1,19 @@
-const getWallet = require('../services/walletService');
+const getBtcWallet = require('../services/btcService');
+const getEthWallet = require('../services/ethService');
 
 class WalletController {
-  get = async (req, res, next) => {
+  btcWallet = async (req, res, next) => {
     try {
-      const address = req.query.address;
-      if (!address) {
-        throw new Error('Missing address');
-      }
+      const wallet = await getBtcWallet(req.query.address);
+      return res.json(wallet);
+    } catch (err) {
+      next(err);
+    }
+  };
 
-      const wallet = await getWallet(address);
+  ethWallet = async (req, res, next) => {
+    try {
+      const wallet = await getEthWallet(req.query.address);
       return res.json(wallet);
     } catch (err) {
       next(err);

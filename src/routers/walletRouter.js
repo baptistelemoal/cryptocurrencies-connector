@@ -3,8 +3,9 @@ const express = require('express');
 
 const router = express.Router();
 const walletController = new WalletController();
-const { get } = walletController;
+const { btcWallet, ethWallet } = walletController;
 
-router.get('/', (req, res, next) => get(req, res, next));
+router.get('/btc', (req, res, next) => btcWallet(req, res, next));
+router.get('/eth', (req, res, next) => ethWallet(req, res, next));
 
 module.exports = router;
